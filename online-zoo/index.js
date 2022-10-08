@@ -1707,7 +1707,7 @@ const closeBtn = document.querySelector('.close-menu-btn');
 const popUpBg = document.querySelector('.popup__background');
 
 function closeBurgerMenu(event) {
-  if (event.target === closeBtn || event.target === popUpBg || event.type === 'scroll') burgerMenu.classList.add('burger-menu--inactive');
+  if (event.target === closeBtn || event.target === popUpBg || event.target.innerText === 'About' || event.type === 'scroll') burgerMenu.classList.add('burger-menu--inactive');
 }
 
 window.addEventListener('click', closeBurgerMenu);
