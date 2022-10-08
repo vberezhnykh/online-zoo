@@ -1761,8 +1761,7 @@ function moveCards(event) {
   const newSlide = createSlide();
   slideTwo.classList.add('animation');
 
-  if (event.target === rightArrow) {
-    //починить кнопки
+  if (event.target === rightArrow || event.target === rightArrow.children[0]) {
     slideOne.classList.add('animation');
     slideOne.style.left = `${gapWidth}px`;
     slideTwo.style.left = `${gapWidth}px`;
@@ -1773,8 +1772,10 @@ function moveCards(event) {
       slideThree.remove();
       rightArrow.addEventListener('click', moveCards);
       leftArrow.addEventListener('click', moveCards);
+      newSlide.replaceWith(createSlide());
+      slideTwo.replaceWith(createSlide());
     }, 1000);
-  } else if (event.target === leftArrow) {
+  } else if (event.target === leftArrow || event.target === leftArrow.children[0]) {
     slideThree.classList.add('animation');
     slideTwo.style.left = `${-gapWidth}px`;
     slideThree.style.left = `${-gapWidth}px`;
@@ -1785,6 +1786,8 @@ function moveCards(event) {
       slideOne.remove();
       rightArrow.addEventListener('click', moveCards);
       leftArrow.addEventListener('click', moveCards);
+      newSlide.replaceWith(createSlide());
+      slideTwo.replaceWith(createSlide());
     }, 1000);
   }
 }
