@@ -1694,6 +1694,13 @@ __webpack_require__.r(__webpack_exports__);
 let windowWidth = window.innerWidth;
 window.addEventListener('resize', () => {
   windowWidth = window.innerWidth;
+
+  if (windowWidth === 1000 || windowWidth === 1600 || windowWidth === 640 || windowWidth === 320) {
+    const testimonials = document.querySelector('.testimonials-container');
+    testimonials.remove();
+    addTestimonials();
+    scroll.value = 0; //на случай, если до этого скролл был в другмо положении
+  }
 });
 const burgerMenuBtn = document.querySelector('.burger-menu-btn');
 const burgerMenu = document.querySelector('.burger-menu');
@@ -1927,15 +1934,12 @@ function createTestimonials() {
   }
 
   testimonials.addEventListener('wheel', wheelTestimonials);
-  /* let clientX;
-  testimonials.addEventListener('touchstart', (e) => {
-      clientX = e.touches[0].clientX;
-  }, false);
-  testimonials.addEventListener('touchend', (e) => {
-      let deltaX;
-      deltaX = e.changedTouches[0].clientX - clientX;
-      console.log(deltaX);
-  }, false) */
+  /* testimonials.addEventListener('wheel', function(event) {
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(() => {
+          wheelTestimonials(event);
+      }, 150)
+  }); */
 
   return testimonials;
 }
@@ -1949,11 +1953,15 @@ scroll.addEventListener('click', () => {
   let scrollStep;
   if (windowWidth > 1000) scrollStep = 298;else scrollStep = 323;
   testimonials.scrollLeft += parseInt(`${scrollStep * valueDiff}`);
+  /* console.log(testimonials.getBoundingClientRect()) */
+
   previousValue = currentValue;
 });
+let isScrolling;
 
 function wheelTestimonials(event) {
   event.preventDefault();
+  const testimonials = document.querySelector('.testimonials-container');
 
   if (event.deltaY > 0) {
     scroll.value++;
@@ -1963,23 +1971,6 @@ function wheelTestimonials(event) {
     scroll.click();
   }
 }
-/* const onScrollStop = callback => {
-    let isScrolling;
-    const testimonials = document.querySelector('.testimonials-container');
-    testimonials.addEventListener('scroll', e => {
-        clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            callback();
-        }, 150);
-      },
-      false
-    );
-  };
-
-  
-  onScrollStop(() => {
-    console.log('The user has stopped scrolling');
-  }); */
 })();
 
 /******/ })()
